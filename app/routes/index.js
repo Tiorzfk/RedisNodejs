@@ -35,4 +35,20 @@ router.get('/api/:key', function(req, res, next) {
 
 });
 
+router.get('/storeArray', function(req, res, next) {
+
+  client.on("error", function (err) {
+    console.log("Error " + err);
+  });
+
+  client.smembers('name', function(error, result) {
+
+      if (result) {
+        // the result exists in our cache - return it to our user immediately
+        res.send({ "array": result});
+      }
+  });
+
+});
+
 module.exports = router;
